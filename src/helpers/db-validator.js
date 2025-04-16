@@ -1,4 +1,5 @@
 import User from "../user/user.model.js";
+import Category from "../category/category.model.js"
 
 export const emailExists = async (email = "") => {
     const existe = await User.findOne({email})
@@ -36,5 +37,12 @@ export const isAdmin = async (uid = " ") =>{
 
     if(existe.role !== "ADMIN_ROLE" ){
         throw new Error("Is not a admin")
+    }
+}
+
+export const categoryExists = async(uid = " ") =>{
+    const existe = await Category.findById(uid);
+    if(!existe){
+        throw new Error("The category with the entered id does not exist");
     }
 }

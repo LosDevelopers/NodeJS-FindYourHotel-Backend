@@ -1,5 +1,5 @@
 import User from "../src/user/user.model.js"
-//import Category from "../src/category/category.model.js"
+import Category from "../src/category/category.model.js"
 import {hash} from "argon2"
 
 export const createAdmin = async () => {
@@ -30,7 +30,7 @@ export const createAdmin = async () => {
     }
 };
 
-/*export const createDefaultCategory = async () => {
+export const createDefaultCategory = async () => {
     try {
       const name = "anything"
 
@@ -50,4 +50,4 @@ export const createAdmin = async () => {
       } catch (err) {
       console.error("Error al crear las categorias:", err)
     }
-}*/
+}

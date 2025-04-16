@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
 import { emailExists } from "../helpers/db-validator.js";
-import { validateField } from "./validate-field.js";
+import { validateField } from "./validate-fields.js";
 import { handleErrors } from "./handle-errors.js";
 import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-roles.js";

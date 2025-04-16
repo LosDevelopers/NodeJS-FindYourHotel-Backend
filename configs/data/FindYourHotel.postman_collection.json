@@ -422,6 +422,139 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Add Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAwMTM1ZTk0MmNjMTVkNmQ3MjdkMDciLCJpYXQiOjE3NDQ4MzY2NjEsImV4cCI6MTc0NDg0MDI2MX0.nT_DKlOs5zBD3lWrR84iDin0CbKwT9pmCBBqCXPPuB8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"5 estrellas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/category/addCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"category",
+								"addCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAwMTM1ZTk0MmNjMTVkNmQ3MjdkMDciLCJpYXQiOjE3NDQ4MzY2NjEsImV4cCI6MTc0NDg0MDI2MX0.nT_DKlOs5zBD3lWrR84iDin0CbKwT9pmCBBqCXPPuB8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/category/categoriesList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"category",
+								"categoriesList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Categories",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"1 estrella\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/category/categories/67fd8eb1db564b22dba05a5b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"category",
+								"categories",
+								"67fd8eb1db564b22dba05a5b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Categories",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/category/deleteCategories/67fd8eb1db564b22dba05a5b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"category",
+								"deleteCategories",
+								"67fd8eb1db564b22dba05a5b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
