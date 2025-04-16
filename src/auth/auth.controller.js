@@ -53,7 +53,7 @@ export const login = async (req, res) => {
             success: true,
             message: "login successful",
             userDetails: {
-                role: `Te has logeado desde tu cuenta de ${acces.role}`,
+                role: `Successfully logged`,
                 token: webToken
             }
         })

@@ -19,7 +19,7 @@ const userSchema = Schema({
         type: String,
         required: true,
         default: "CLIENT_ROLE",
-        enum: ["ADMIN_ROLE", "CLIENT_ROLE"]
+        enum: ["ADMIN_ROLE", "CLIENT_ROLE", "HOST_ROLE"]
     },
     reservation: [
         {
