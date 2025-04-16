@@ -179,7 +179,7 @@ export const updateUserUser = async (req, res) => {
 export const updateRole = async (req,res) => {
     try {
         const { uid } = req.params;
-        const newRole = "ADMIN_ROLE";
+        const {newRole} = req.body;
 
         const updatedUser = await User.findByIdAndUpdate(uid, { role: newRole }, { new: true });
 

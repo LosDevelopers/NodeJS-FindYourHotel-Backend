@@ -83,7 +83,6 @@ export const deleteUserValidatorClient = [
 export const updatePasswordValidator = [
     validateJWT,
     hasRoles("ADMIN_ROLE", "CLIENT_ROLE", "HOST_ROLE"),
-    body("oldPassword").notEmpty().withMessage("El password es requerido"),
     body("newPassword").isLength({ min: 8 }).withMessage("El password debe contener al menos 8 caracteres"),
     validateField,
     handleErrors
