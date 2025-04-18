@@ -4,9 +4,12 @@ import { generateJWT } from "../helpers/generate-jwt.js";
 
 export const register = async (req, res) => {
     try {
+        let Img = req.img;
+
         const data = req.body;
         const encryptPassword = await hash(data.password)
         data.password = encryptPassword
+        data.profilePicture = Img
 
         const user = await User.create(data);
 

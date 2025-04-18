@@ -196,3 +196,34 @@ export const updateRole = async (req,res) => {
         });
     }
 }
+
+
+export  const updateProfilePicture = async (req, res) => {
+    try {
+        const { usuario } = req;
+        const data = req.body;
+
+        if (!req.img) {
+            return res.status(400).json({
+                success: false,
+                message: "No se recibió ninguna imagen"
+            });
+        }
+
+        data.profilePicture = req.img;
+
+        const updatedUser = await User.findByIdAndUpdate(usuario._id, {profilePicture: data.profilePicture}, { new: true });
+
+        return res.status(200).json({
+            success: true,
+            msg: 'Usuario Actualizado',
+            user: updatedUser,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            msg: 'Error al actualizar usuario',
+            error: err.message
+        });
+    }
+}

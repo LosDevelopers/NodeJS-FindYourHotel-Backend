@@ -312,6 +312,48 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "update img",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAxYWZhNTlmYzgyNzUzMDE3NjI5YmYiLCJpYXQiOjE3NDUwMTMyMTYsImV4cCI6MTc0NTAxNjgxNn0.IGlwZyN-lGffnK7Ez-ikS_wRTJWdzEWDx92_Nu25XAQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "img",
+											"type": "file",
+											"src": "/C:/Users/jdfig/Pictures/Camera Roll/WIN_20240610_11_26_42_Pro.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/user/updateProfilePicture",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"user",
+										"updateProfilePicture"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -321,13 +363,29 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Ramiro Donovan\",\r\n  \"email\": \"rmorales213278@gmail.com\",\r\n  \"password\": \"1234Angel#\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/jdfig/Pictures/Camera Roll/WhatsApp Image 2022-10-05 at 8.47.13 AM.jpeg"
+								},
+								{
+									"key": "name",
+									"value": "Ramiro Donovan",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "qqqq@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234Angel#",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:3000/FindYourHotel/v1/auth/register",

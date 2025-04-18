@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { getUserById, getUsers, deleteUserAdmin, updatePassword, updateUserUser, updateUserAdmin, updateRole, 
-    deleteUserClient } from "./user.controller.js";
+    deleteUserClient, updateProfilePicture } from "./user.controller.js";
 import { getUserByIdValidator, updatePasswordValidator, deleteUserValidatorClient, deleteUserValidatorAdmin, 
-    createUserValidation, updateRoleValidator, getUserValidation } from "../middlewares/user-validator.js";
+    createUserValidation, updateRoleValidator, getUserValidation, updateProfilePictureValidator } from "../middlewares/user-validator.js";
 import { register } from "../auth/auth.controller.js";
+import { uploadProfilePicture } from "../middlewares/multer-uploads.js";
+import { cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
 const router = Router();
 
@@ -191,7 +193,7 @@ router.put("/updateUserAdmin/:uid", deleteUserValidatorAdmin, updateUserAdmin);
  *       400:
  *         description: Validation error
  */
-router.post("/createUser", createUserValidation, register);
+router.post("/createUser", uploadProfilePicture.single("profilePicture"), cloudinaryUploadMiddleware("profile-img"), createUserValidation, register);
 
 /**
  * @swagger
@@ -222,6 +224,34 @@ router.post("/createUser", createUserValidation, register);
  *         description: Validation error
  */
 router.patch("/updateRole/:uid", updateRoleValidator, updateRole);
+
+
+/**
+ * @swagger
+ * /updateProfilePicture:
+ *   patch:
+ *     summary: Update the profile picture of the user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               img:
+ *                 type: string
+ *                 format: binary
+ *                 description: The image file to upload
+ *     responses:
+ *       200:
+ *         description: Profile picture updated successfully
+ *       400:
+ *         description: Validation error or no image provided
+ *       500:
+ *         description: Server error
+ */
+router.patch("/updateProfilePicture", uploadProfilePicture.single("img"), cloudinaryUploadMiddleware("profile-img"), updateProfilePictureValidator, updateProfilePicture )
 
 export default router;
 

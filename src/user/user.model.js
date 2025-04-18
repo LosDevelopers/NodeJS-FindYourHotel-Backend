@@ -1,6 +1,9 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = Schema({
+    profilePicture: {
+        type: String,
+    },
     name: {
         type: String,
         required: [true, "Name is required"],

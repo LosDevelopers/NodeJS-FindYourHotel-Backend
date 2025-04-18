@@ -5,6 +5,7 @@ import { handleErrors } from "./handle-errors.js";
 import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-roles.js";
 import { userExists, isClient } from "../helpers/db-validator.js";
+import {deleteFileOnError} from "./delete-file-on-error.js";
 
 
 export const validatorRegister = [
@@ -21,6 +22,7 @@ export const validatorRegister = [
         minSymbols: 1
     }).withMessage("The password must contain at least 8 characters"),
     validateField,
+    deleteFileOnError,
     handleErrors
 ]
 
@@ -120,6 +122,7 @@ export const createUserValidation = [
         minSymbols: 1
     }),
     validateField,
+    deleteFileOnError,
     handleErrors
 ]
 
@@ -129,6 +132,13 @@ export const updateRoleValidator =[
     param("uid", "The id is not valid").isMongoId(),
     param("uid").custom(isClient),
     param("uid").custom(userExists),
+    validateField,
+    handleErrors
+]
+
+export const updateProfilePictureValidator = [
+    validateJWT,
+    hasRoles("ADMIN_ROLE", "CLIENT_ROLE"),
     validateField,
     handleErrors
 ]
