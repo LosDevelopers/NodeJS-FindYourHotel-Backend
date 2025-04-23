@@ -20,6 +20,7 @@ const options ={
         ]
     },
     apis:[
+        './src/room/room.routes.js'
     ]
 }
 
