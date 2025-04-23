@@ -20,6 +20,7 @@ const options ={
         ]
     },
     apis:[
+        './src/reservation/reservation.model.js'
     ]
 }
 

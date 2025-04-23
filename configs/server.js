@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";   
 import { dbConnection } from "./mongo.js";
+import reservationRoutes from "../src/reservation/reservation.model.js";
 import { swaggerDocs, swaggerUi } from "./swagger.js";
 import  apiLimiter from "../src/middlewares/rate-limit-validator.js";
 
@@ -19,6 +20,7 @@ const middlewares = (app) => {
 
 const routes = (app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    app.use('/FindYourHotel/v1/reservation', reservationRoutes)
 }
 
 const conectarDB = async () => {
