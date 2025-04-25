@@ -18,7 +18,7 @@ export const getHotelById = async (req, res) => {
         }
         res.json(hotel);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching hotel details", error });
+        res.status(500).json({ message: "Error buscando los dettales de hotel", error });
     }
 };
 

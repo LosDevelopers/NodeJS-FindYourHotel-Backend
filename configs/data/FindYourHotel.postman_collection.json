@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "986cdb4c-f536-470f-9338-8068d700e9a1",
+		"_postman_id": "5032948c-202b-47aa-8b49-51e17c167ed3",
 		"name": "FindYourHotel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41959042"
+		"_exporter_id": "38544411"
 	},
 	"item": [
 		{
@@ -549,6 +549,204 @@
 								"category",
 								"deleteCategories",
 								"67fd8eb1db564b22dba05a5b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hotel",
+			"item": [
+				{
+					"name": "GetHoteles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODBiMTJkYTI5MzRiNjdjYWRkM2IzZGIiLCJpYXQiOjE3NDU1NTYxOTQsImV4cCI6MTc0NTU1OTc5NH0.idqa4j2UfJ35HCDUBfKgVTNwFAkghhg7OHDpwM7v2nI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"hotel",
+								"hoteles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddHotel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODA4NzczZDA3N2E5N2JjOTdkZDE2MDAiLCJpYXQiOjE3NDU1NTY1OTgsImV4cCI6MTc0NTU2MDE5OH0.mOFOin_vCASwQ56VqmXeZYFMr3QElebWdPnlejIzhiM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"New Hotel\",\r\n  \"address\": \"456 New Street\",\r\n  \"classification\": 4,\r\n  \"image\": \"http://example.com/new-image.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"hotel",
+								"hoteles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHotelID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODBiMTJkYTI5MzRiNjdjYWRkM2IzZGIiLCJpYXQiOjE3NDU1NTY3MjksImV4cCI6MTc0NTU2MDMyOX0.MKkihOLN9XHUaRP73zK0dyBnldaU55T5wVXx11LVPv0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles/680b147e420e6bf6e1e103d3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"hotel",
+								"hoteles",
+								"680b147e420e6bf6e1e103d3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActulizarHotel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODA4NzczZDA3N2E5N2JjOTdkZDE2MDAiLCJpYXQiOjE3NDU1NTcxMDYsImV4cCI6MTc0NTU2MDcwNn0.yzC_vRbeTgM0Sa9zbtg1U8E89XiX9rRtX7b59DbkO74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated Hotel\",\r\n  \"address\": \"789 Updated Street\",\r\n  \"classification\": 3,\r\n  \"image\": \"http://example.com/updated-image.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles/680b147e420e6bf6e1e103d3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"hotel",
+								"hoteles",
+								"680b147e420e6bf6e1e103d3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteHotel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODA4NzczZDA3N2E5N2JjOTdkZDE2MDAiLCJpYXQiOjE3NDU1NTcxMDYsImV4cCI6MTc0NTU2MDcwNn0.yzC_vRbeTgM0Sa9zbtg1U8E89XiX9rRtX7b59DbkO74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles/680b147e420e6bf6e1e103d3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"FindYourHotel",
+								"v1",
+								"hotel",
+								"hoteles",
+								"680b147e420e6bf6e1e103d3"
 							]
 						}
 					},
