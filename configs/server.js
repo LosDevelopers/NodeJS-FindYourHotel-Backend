@@ -7,6 +7,7 @@ import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import { swaggerDocs, swaggerUi } from "./swagger.js";
 import  apiLimiter from "../src/middlewares/rate-limit-validator.js";
+import roomRoutes from "../src/room/room.routes.js";
 import authRouter from "../src/auth/auth.routes.js";
 import userRouter from "../src/user/user.routes.js";
 import hotelRouter from "../src/hotel/hotel.routes.js";
@@ -24,6 +25,7 @@ const middlewares = (app) => {
 
 const routes = (app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    app.use("/FindYourHotel/v1/rooms", roomRoutes);
     app.use("/FindYourHotel/v1/auth", authRouter);
     app.use("/FindYourHotel/v1/user", userRouter);
     app.use("/FindYourHotel/v1/category", categoryRouter);
