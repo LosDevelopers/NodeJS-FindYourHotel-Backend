@@ -21,6 +21,10 @@ const options ={
     },
     apis:[
         './src/room/room.routes.js'
+        "./src/auth/auth.routes.js",
+        "./src/user/user.routes.js",
+        "./src/category/category.routes.js",
+        "./src/hotel/hotel.routes.js",
     ]
 }
 
