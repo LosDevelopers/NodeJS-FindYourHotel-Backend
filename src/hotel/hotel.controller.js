@@ -23,9 +23,13 @@ export const getHotelById = async (req, res) => {
 };
 
 export const createHotel = async (req, res) => {
-    const { name, address, classification, image } = req.body;
+    let Img = req.img;
+
+    const data = req.body;
+
+    data.image = Img
     try {
-        const newHotel = new Hotel({ name, address, classification, image });
+        const newHotel = new Hotel(data);
         await newHotel.save();
         res.status(201).json(newHotel);
     } catch (error) {
@@ -35,11 +39,15 @@ export const createHotel = async (req, res) => {
 
 export const updateHotel = async (req, res) => {
     const { id } = req.params;
-    const { name, address, classification, image } = req.body;
+    let Img = req.img;
+    const data = req.body;
+
+    data.image = Img
+
     try {
         const updatedHotel = await Hotel.findByIdAndUpdate(
             id,
-            { name, address, classification, image },
+            data,
             { new: true }
         );
         if (!updatedHotel) {

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5032948c-202b-47aa-8b49-51e17c167ed3",
+		"_postman_id": "4fda168a-8328-413a-a6cb-8d09ae64a3f3",
 		"name": "FindYourHotel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38544411"
+		"_exporter_id": "41959042"
 	},
 	"item": [
 		{
@@ -669,7 +669,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODA4NzczZDA3N2E5N2JjOTdkZDE2MDAiLCJpYXQiOjE3NDU1NTY1OTgsImV4cCI6MTc0NTU2MDE5OH0.mOFOin_vCASwQ56VqmXeZYFMr3QElebWdPnlejIzhiM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAwMTcwNWExMjI3YTBiMWY2MmU0OWQiLCJpYXQiOjE3NDU2MzE0MTgsImV4cCI6MTc0NTYzNTAxOH0.97q-wD9sBfsm1m_pQ6bdSZCgiLQIJ1S6efpjZrw0fuA",
 									"type": "string"
 								}
 							]
@@ -677,13 +677,29 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"New Hotel\",\r\n  \"address\": \"456 New Street\",\r\n  \"classification\": 4,\r\n  \"image\": \"http://example.com/new-image.jpg\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Hotel Kinal",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "5av 7ma calle",
+									"type": "text"
+								},
+								{
+									"key": "classification",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/jdfig/Pictures/Camera Roll/WIN_20240610_11_26_42_Pro.jpg"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles",
@@ -743,7 +759,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODA4NzczZDA3N2E5N2JjOTdkZDE2MDAiLCJpYXQiOjE3NDU1NTcxMDYsImV4cCI6MTc0NTU2MDcwNn0.yzC_vRbeTgM0Sa9zbtg1U8E89XiX9rRtX7b59DbkO74",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAwMTcwNWExMjI3YTBiMWY2MmU0OWQiLCJpYXQiOjE3NDU2MzE0MTgsImV4cCI6MTc0NTYzNTAxOH0.97q-wD9sBfsm1m_pQ6bdSZCgiLQIJ1S6efpjZrw0fuA",
 									"type": "string"
 								}
 							]
@@ -751,16 +767,32 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Updated Hotel\",\r\n  \"address\": \"789 Updated Street\",\r\n  \"classification\": 3,\r\n  \"image\": \"http://example.com/updated-image.jpg\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Updated Hotel",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "789 Updated Street",
+									"type": "text"
+								},
+								{
+									"key": "classification",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/jdfig/Pictures/Camera Roll/WhatsApp Image 2022-10-05 at 8.47.13 AM.jpeg"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles/680b147e420e6bf6e1e103d3",
+							"raw": "http://localhost:3000/FindYourHotel/v1/hotel/hoteles/680c40de8328f29fb419eb0f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -771,7 +803,7 @@
 								"v1",
 								"hotel",
 								"hoteles",
-								"680b147e420e6bf6e1e103d3"
+								"680c40de8328f29fb419eb0f"
 							]
 						}
 					},

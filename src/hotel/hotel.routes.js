@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { getHotels, getHotelById, createHotel, updateHotel, deleteHotel } from './hotel.controller.js';
-import { validateJWT } from '../middlewares/validate-jwt.js';
-import { hasRoles } from '../middlewares/validate-roles.js';
 import { addHotelValidator, editHotelValidator, deleteHotelValidator } from "../middlewares/hotel-validator.js";
+import { uploadHotelImage } from "../middlewares/multer-uploads.js";
+import { cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
 const router = Router();
 
@@ -80,7 +80,7 @@ router.get('/hoteles/:id', getHotelById);
  *       500:
  *         description: Server error
  */
-router.post('/hoteles', [validateJWT, hasRoles('ADMIN_ROLE'), addHotelValidator], createHotel);
+router.post('/hoteles', uploadHotelImage.single("img"), cloudinaryUploadMiddleware("hotel-img"), addHotelValidator, createHotel);
 
 /**
  * @swagger
@@ -124,7 +124,7 @@ router.post('/hoteles', [validateJWT, hasRoles('ADMIN_ROLE'), addHotelValidator]
  *       500:
  *         description: Server error
  */
-router.put('/hoteles/:id', [validateJWT, hasRoles('ADMIN_ROLE'), editHotelValidator], updateHotel);
+router.put('/hoteles/:id',uploadHotelImage.single("img"), cloudinaryUploadMiddleware("hotel-img"),  editHotelValidator, updateHotel);
 
 /**
  * @swagger
@@ -149,6 +149,6 @@ router.put('/hoteles/:id', [validateJWT, hasRoles('ADMIN_ROLE'), editHotelValida
  *       500:
  *         description: Server error
  */
-router.delete('/hoteles/:id', [validateJWT, hasRoles('ADMIN_ROLE'), deleteHotelValidator], deleteHotel);
+router.delete('/hoteles/:id', deleteHotelValidator, deleteHotel);
 
 export default router;
