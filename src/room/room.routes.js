@@ -13,6 +13,7 @@ import {
     updateRoomImageValidator,
 } from "../middlewares/room-validators.js";
 import { uploadRoomImage } from "../middlewares/multer-uploads.js";
+import { cloudinaryUploadMultiple } from "../middlewares/img-uploads.js";
 
 const router = Router();
 
@@ -58,7 +59,7 @@ const router = Router();
  *       500:
  *         description: Error creating room
  */
-router.post("/createRoom", createRoomValidator, addRoom);
+router.post("/createRoom", uploadRoomImage.array("images", 5), cloudinaryUploadMultiple("room-img"), createRoomValidator, addRoom);
 
 /**
  * @swagger
@@ -91,7 +92,7 @@ router.post("/createRoom", createRoomValidator, addRoom);
  *       500:
  *         description: Error updating room image
  */
-router.patch("/updateImage/:rid", uploadRoomImage.single("image"), updateRoomImageValidator, updateRoomImage);
+router.patch("/updateImage/:rid", uploadRoomImage.array("image"), updateRoomImageValidator, updateRoomImage);
 
 /**
  * @swagger

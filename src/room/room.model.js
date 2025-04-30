@@ -1,6 +1,12 @@
 import { model, Schema } from 'mongoose';
 
 const roomSchema = Schema({
+    number: {
+        type: String,
+        required: [true, 'Room number is required'],
+        maxLength: [10, 'Room number cannot exceed 10 characters'],
+        unique: false
+    },
     hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
@@ -21,22 +27,10 @@ const roomSchema = Schema({
         required: [true, 'Price is required'],
         min: [0, 'Price must be at least 0']
     },
-    image: {
+    images: [{
         type: String,
         required: [true, 'Image is required']
-    },
-    disponibility: {
-        type: [String],
-        default: []
-    },
-    startDate: {
-        type: Date,
-        required: [true, 'Start date is required']
-    },
-    endDate: {
-        type: Date,
-        required: [true, 'End date is required']
-    },
+    }],
     status: {
         type: Boolean,
         default: true

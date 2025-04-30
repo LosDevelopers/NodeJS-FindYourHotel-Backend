@@ -1,13 +1,12 @@
 import Room from "./room.model.js";
-import fs from "fs/promises";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const addRoom = async (req, res) => {
     try {
+        let Img = req.imgs;
+
         const data = req.body;
+        data.images = Img;
 
         const room = await Room.create(data);
 
@@ -115,11 +114,6 @@ export const updateRoomImage = async (req, res) => {
                 success: false,
                 message: "No se proporcionó ningún archivo",
             });
-        }
-
-        if (room.image) {
-            const oldRoomImage = join(__dirname, "../../public/uploads/room-images", room.image);
-            await fs.unlink(oldRoomImage);
         }
 
         room.image = newRoomImage;

@@ -1,4 +1,5 @@
 import Hotel from './hotel.model.js';
+import Category from '../category/category.model.js';
 
 export const getHotels = async (req, res) => {
     try {
@@ -23,11 +24,18 @@ export const getHotelById = async (req, res) => {
 };
 
 export const createHotel = async (req, res) => {
+    const {usuario} = req;
     let Img = req.img;
 
     const data = req.body;
 
     data.image = Img
+    data.hosts = usuario._id
+
+    if (!data.category) {
+        data.category = await Category.findOne({ name: "anything" });
+    }
+
     try {
         const newHotel = new Hotel(data);
         await newHotel.save();

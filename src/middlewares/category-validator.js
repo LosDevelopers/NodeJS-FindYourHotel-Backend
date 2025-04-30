@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
 import {validateField} from "./validate-fields.js"
-import {categoryExists} from "../helpers/db-validator.js"
+import {categoryExists, categoryExistsByName} from "../helpers/db-validator.js"
 import {handleErrors} from "./handle-errors.js"
 import { hasRoles } from "./validate-roles.js";
 import { validateJWT } from "./validate-jwt.js";
@@ -9,6 +9,13 @@ export const addCategoryValidator = [
     validateJWT,
     hasRoles("ADMIN_ROLE"),
     body("name").not().isEmpty().withMessage("NOMBRE ES REQUERIDO"),
+    body("name").custom(categoryExistsByName),
+    validateField,
+    handleErrors
+];
+
+export const categoriesListValidator = [
+    validateJWT,
     validateField,
     handleErrors
 ];

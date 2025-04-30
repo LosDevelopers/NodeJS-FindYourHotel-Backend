@@ -19,15 +19,20 @@ const hotelSchema = Schema({
         type: String,
         required: [true, "Image is required"]
     },
-    category: [
-        {type: Schema.Types.ObjectId,
+    category:{
+        type: Schema.Types.ObjectId,
         ref: "Category"
-        }
-    ],
+    },
     status: {
         type: Boolean,
         default: true
-    }
+    },
+    hosts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ]
 });
 
 hotelSchema.methods.toJSON = function () {
