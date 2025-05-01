@@ -2,6 +2,7 @@ import User from "../user/user.model.js";
 import Category from "../category/category.model.js"
 import Room from "../room/room.model.js";
 import Hotel from "../hotel/hotel.model.js";
+import Reservation from "../reservation/reservation.model.js"
 
 export const roomExists = async (rid = ' ') => {
     const Exists = await Room.findById(rid);
@@ -63,3 +64,16 @@ export const categoryExistsByName = async(name = " ") =>{
     }
 }
 
+export const hotelExists = async (uid = " ") => {
+    const existe = await Hotel.findById(uid)
+    if (!existe) {
+        throw new Error('The hotel with the entered id does not exist');
+    }
+}
+
+export const reservationExists = async (rrid = " ") => {
+    const existe = await Reservation.findById(rrid)
+    if (!existe) {
+        throw new Error('The reservation with the entered id does not exist')
+    }
+}
