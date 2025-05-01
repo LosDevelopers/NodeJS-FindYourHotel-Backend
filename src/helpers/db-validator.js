@@ -1,5 +1,14 @@
 import User from "../user/user.model.js";
 import Category from "../category/category.model.js"
+import Room from "../room/room.model.js";
+import Hotel from "../hotel/hotel.model.js";
+
+export const roomExists = async (rid = ' ') => {
+    const Exists = await Room.findById(rid);
+    if (!Exists) {
+        throw new Error("Room not found");
+    }
+};
 
 export const emailExists = async (email = "") => {
     const existe = await User.findOne({email})
@@ -46,3 +55,11 @@ export const categoryExists = async(uid = " ") =>{
         throw new Error("The category with the entered id does not exist");
     }
 }
+
+export const categoryExistsByName = async(name = " ") =>{
+    const existe = await Category.findOne({name});
+    if(!existe){
+        throw new Error("The category with the entered name does not exist");
+    }
+}
+

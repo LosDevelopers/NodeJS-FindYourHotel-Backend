@@ -11,8 +11,10 @@ import {
     updateRoomValidator,
     deleteRoomValidator,
     updateRoomImageValidator,
+    getRoomsValidator
 } from "../middlewares/room-validators.js";
 import { uploadRoomImage } from "../middlewares/multer-uploads.js";
+import { cloudinaryUploadMultiple, cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
 const router = Router();
 
@@ -58,7 +60,7 @@ const router = Router();
  *       500:
  *         description: Error creating room
  */
-router.post("/createRoom", createRoomValidator, addRoom);
+router.post("/createRoom", uploadRoomImage.array("images", 5), cloudinaryUploadMultiple("room-img"), createRoomValidator, addRoom);
 
 /**
  * @swagger
@@ -91,7 +93,7 @@ router.post("/createRoom", createRoomValidator, addRoom);
  *       500:
  *         description: Error updating room image
  */
-router.patch("/updateImage/:rid", uploadRoomImage.single("image"), updateRoomImageValidator, updateRoomImage);
+router.patch("/updateImage/:rid", uploadRoomImage.single("image"), cloudinaryUploadMiddleware("room-img"), updateRoomImageValidator, updateRoomImage);
 
 /**
  * @swagger
@@ -135,29 +137,6 @@ router.put("/updateRoom/:rid", updateRoomValidator, updateRoom);
 
 /**
  * @swagger
- * /FindYourHotel/v1/room/getRoom/{rid}:
- *   get:
- *     summary: Get room details
- *     tags: [Room]
- *     parameters:
- *       - in: path
- *         name: rid
- *         schema:
- *           type: string
- *         required: true
- *         description: Room ID
- *     responses:
- *       200:
- *         description: Room details fetched successfully
- *       404:
- *         description: Room not found
- *       500:
- *         description: Error fetching room details
- */
-router.get("/getRoom/:rid", updateRoomValidator, updateRoom);
-
-/**
- * @swagger
  * /FindYourHotel/v1/room/getRooms:
  *   get:
  *     summary: Get all rooms
@@ -168,7 +147,7 @@ router.get("/getRoom/:rid", updateRoomValidator, updateRoom);
  *       500:
  *         description: Error fetching rooms
  */
-router.get("/getRooms", getRooms);
+router.get("/getRooms", getRoomsValidator, getRooms);
 
 /**
  * @swagger

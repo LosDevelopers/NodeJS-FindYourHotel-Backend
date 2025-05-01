@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getHotels, getHotelById, createHotel, updateHotel, deleteHotel } from './hotel.controller.js';
-import { addHotelValidator, editHotelValidator, deleteHotelValidator } from "../middlewares/hotel-validator.js";
+import { getHotels, getHotelById, createHotel, updateHotel, deleteHotel, addHost } from './hotel.controller.js';
+import { addHotelValidator, editHotelValidator, deleteHotelValidator, addHostValidator } from "../middlewares/hotel-validator.js";
 import { uploadHotelImage } from "../middlewares/multer-uploads.js";
 import { cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
@@ -150,5 +150,7 @@ router.put('/hoteles/:id',uploadHotelImage.single("img"), cloudinaryUploadMiddle
  *         description: Server error
  */
 router.delete('/hoteles/:id', deleteHotelValidator, deleteHotel);
+
+router.post('/hoteles/:id', addHostValidator, addHost);
 
 export default router;

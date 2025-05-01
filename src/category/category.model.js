@@ -8,7 +8,12 @@ const categorySchema = new Schema({
     status:{
         type: Boolean,
         default: true
-    }
+    },
+    type:{
+        type: String,
+        required: true,
+        enum: ["hotel", "room"]
+    },
 })
 
 categorySchema.methods.toJSON = function(){

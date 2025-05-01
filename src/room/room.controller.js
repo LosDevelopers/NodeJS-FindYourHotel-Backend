@@ -1,13 +1,24 @@
 import Room from "./room.model.js";
-import fs from "fs/promises";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import Hotel from "../hotel/hotel.model.js";
+import User from "../user/user.model.js";
 
 export const addRoom = async (req, res) => {
     try {
+        const { usuario } = req;
+
+        let Img = req.imgs;
+
         const data = req.body;
+        data.images = Img;
+
+        const hotel = await Hotel.findById(data.hotel);
+
+        if (!hotel.hosts.includes(usuario._id)) {
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
 
         const room = await Room.create(data);
 
@@ -27,7 +38,21 @@ export const addRoom = async (req, res) => {
 
 export const getRooms = async (req, res) => {
     try {
-        const rooms = await Room.find();
+        const { usuario } = req;
+
+        console.log(usuario._id);
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
+
+        if (!hotel) {
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
+        console.log(hotel._id);
+        const rooms = await Room.find({ hotel: hotel._id }).populate("hotel", "name").populate("category", "name").
+            populate("images");
 
         return res.status(200).json({
             success: true,
@@ -44,10 +69,21 @@ export const getRooms = async (req, res) => {
 
 export const updateRoom = async (req, res) => {
     try {
+        const { usuario } = req;
+
         const { rid } = req.params;
         const data = req.body;
 
         const room = await Room.findByIdAndUpdate(rid, data, { new: true });
+
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
+
+        if (!hotel) {
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
 
         if (!room) {
             return res.status(404).json({
@@ -72,9 +108,21 @@ export const updateRoom = async (req, res) => {
 
 export const deleteRoom = async (req, res) => {
     try {
+        const { usuario } = req;
         const { rid } = req.params;
 
-        const room = await Room.findByIdAndDelete(rid);
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
+
+        if (!hotel) {
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
+
+        const room = await Room.findByIdAndUpdate(rid, { status: false }, { new: true });
+
 
         if (!room) {
             return res.status(404).json({
@@ -98,10 +146,25 @@ export const deleteRoom = async (req, res) => {
 
 export const updateRoomImage = async (req, res) => {
     try {
+        const { usuario } = req;
+        let Img = req.img;
+
         const { rid } = req.params;
-        const newRoomImage = req.file ? req.file.filename : null;
+        const data = req.body;
+
+        const newRoomImage = Img
 
         const room = await Room.findById(rid);
+
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
+
+        if (!hotel) {
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
 
         if (!room) {
             return res.status(404).json({
@@ -117,12 +180,9 @@ export const updateRoomImage = async (req, res) => {
             });
         }
 
-        if (room.image) {
-            const oldRoomImage = join(__dirname, "../../public/uploads/room-images", room.image);
-            await fs.unlink(oldRoomImage);
-        }
+        room.images.push(newRoomImage);
+        room.images = room.images.filter((img) => img !== data.oldImage);
 
-        room.image = newRoomImage;
         await room.save();
 
         return res.status(200).json({
