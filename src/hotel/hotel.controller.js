@@ -1,5 +1,6 @@
 import Hotel from './hotel.model.js';
 import Category from '../category/category.model.js';
+import User from '../user/user.model.js';
 
 export const getHotels = async (req, res) => {
     try {
@@ -32,6 +33,13 @@ export const createHotel = async (req, res) => {
     data.image = Img
     data.hosts = usuario._id
 
+    let user = await User.findById(usuario._id);
+
+    user.role = "HOST_ROLE";
+
+    user = await user.save();
+
+
     if (!data.category) {
         data.category = await Category.findOne({ name: "anything" });
     }
@@ -46,6 +54,7 @@ export const createHotel = async (req, res) => {
 };
 
 export const updateHotel = async (req, res) => {
+    const {usuario} = req;
     const { id } = req.params;
     let Img = req.img;
     const data = req.body;
@@ -76,6 +85,7 @@ export const updateHotel = async (req, res) => {
 };
 
 export const deleteHotel = async (req, res) => {
+    const {usuario} = req;
     const { id } = req.params;
     try {
         const deletedHotel = await Hotel.findByIdAndUpdate(
@@ -99,3 +109,35 @@ export const deleteHotel = async (req, res) => {
         res.status(500).json({ message: "Error deleting hotel", error });
     }
 };
+
+export const addHost = async (req, res) => {
+    const {usuario} = req;
+    const { id } = req.params;
+    const { hostId } = req.body;
+
+    try {
+        const hotel = await Hotel.findById(id);
+
+        if (!hotel) {
+            return res.status(404).json({ message: "Hotel not found" });
+        }
+
+        if(!hotel.hosts.includes(usuario._id)){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar un host a este hotel",
+            });
+        }
+
+        if (hotel.hosts.includes(hostId)) {
+            return res.status(400).json({ message: "Host already added" });
+        }
+
+        hotel.hosts.push(hostId);
+        await hotel.save();
+
+        res.json(hotel);
+    } catch (error) {
+        res.status(500).json({ message: "Error adding host", error });
+    }
+}

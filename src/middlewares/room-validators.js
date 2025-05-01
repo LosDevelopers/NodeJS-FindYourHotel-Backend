@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { roomExists } from "../helpers/db-validator.js";
+import { roomExists, categoryExists } from "../helpers/db-validator.js";
 import { validateField } from "./validate-fields.js";
 import { deleteFileOnError } from "./delete-file-on-error.js";
 import { validateJWT } from "./validate-jwt.js";
@@ -12,6 +12,7 @@ export const createRoomValidator = [
     body("hotel").isMongoId().withMessage("Invalid hotel ID"),
     body("number").notEmpty().withMessage("Room number is required"),
     body("category").isMongoId().withMessage("Invalid category ID"),
+    body("category").custom(categoryExists),
     body("price").isNumeric().withMessage("Price is required"),
     body("capacity").isInt({ min: 1 }).withMessage("Capacity must be a positive integer"),
     validateField,
@@ -22,7 +23,6 @@ export const createRoomValidator = [
 export const updateRoomImageValidator = [
     validateJWT,
     hasRoles("HOST_ROLE"),
-    body("image").notEmpty().withMessage("Image is required"),
     param("rid").isMongoId().withMessage("Invalid ID"),
     param("rid").custom(roomExists),
     validateField,
@@ -35,10 +35,10 @@ export const updateRoomValidator = [
     hasRoles("HOST_ROLE"),
     param("rid").isMongoId().withMessage("Invalid ID"),
     param("rid").custom(roomExists),
-    body("name").optional().notEmpty().withMessage("Name is required"),
-    body("description").optional().notEmpty().withMessage("Description is required"),
     body("price").optional().isNumeric().withMessage("Price must be a number"),
     body("capacity").optional().isInt({ min: 1 }).withMessage("Capacity must be a positive integer"),
+    body("category").optional().isMongoId().withMessage("Invalid category ID"),
+    body("category").optional().custom(categoryExists),
     validateField,
     handleErrors
 ];
@@ -48,6 +48,13 @@ export const deleteRoomValidator = [
     hasRoles("HOST_ROLE"),
     param("rid").isMongoId().withMessage("Invalid ID"),
     param("rid").custom(roomExists),
+    validateField,
+    handleErrors
+];
+
+export const getRoomsValidator = [
+    validateJWT,
+    hasRoles("HOST_ROLE"),
     validateField,
     handleErrors
 ];

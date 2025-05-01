@@ -1,9 +1,10 @@
 import Room from "./room.model.js";
 import Hotel from "../hotel/hotel.model.js";
+import User from "../user/user.model.js";
 
 export const addRoom = async (req, res) => {
     try {
-        const {usuario} = req;
+        const { usuario } = req;
 
         let Img = req.imgs;
 
@@ -12,7 +13,7 @@ export const addRoom = async (req, res) => {
 
         const hotel = await Hotel.findById(data.hotel);
 
-        if(!hotel.hosts.includes(usuario._id)){
+        if (!hotel.hosts.includes(usuario._id)) {
             return res.status(401).json({
                 success: false,
                 message: "No tienes permiso para agregar habitaciones a este hotel",
@@ -37,19 +38,21 @@ export const addRoom = async (req, res) => {
 
 export const getRooms = async (req, res) => {
     try {
-        const {usuario} = req;
+        const { usuario } = req;
 
-        const rooms = await Room.find();
+        console.log(usuario._id);
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
 
-        const hotel = await Hotel.findById({hosts: usuario._id});
-
-        if(!hotel){
+        if (!hotel) {
             return res.status(401).json({
                 success: false,
                 message: "No tienes permiso para agregar habitaciones a este hotel",
             });
         }
 
+        console.log(hotel._id);
+        const rooms = await Room.find({ hotel: hotel._id }).populate("hotel", "name").populate("category", "name").
+            populate("images");
 
         return res.status(200).json({
             success: true,
@@ -66,16 +69,16 @@ export const getRooms = async (req, res) => {
 
 export const updateRoom = async (req, res) => {
     try {
-        const {usuario} = req;
+        const { usuario } = req;
 
         const { rid } = req.params;
         const data = req.body;
 
         const room = await Room.findByIdAndUpdate(rid, data, { new: true });
 
-        const hotel = await Hotel.findById({hosts: usuario._id});
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
 
-        if(!hotel){
+        if (!hotel) {
             return res.status(401).json({
                 success: false,
                 message: "No tienes permiso para agregar habitaciones a este hotel",
@@ -105,12 +108,12 @@ export const updateRoom = async (req, res) => {
 
 export const deleteRoom = async (req, res) => {
     try {
-        const {usuario} = req;
+        const { usuario } = req;
         const { rid } = req.params;
 
-        const hotel = await Hotel.findById({hosts: usuario._id});
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
 
-        if(!hotel){
+        if (!hotel) {
             return res.status(401).json({
                 success: false,
                 message: "No tienes permiso para agregar habitaciones a este hotel",
@@ -118,7 +121,7 @@ export const deleteRoom = async (req, res) => {
         }
 
 
-        const room = await Room.findByIdAndDelete(rid);
+        const room = await Room.findByIdAndUpdate(rid, { status: false }, { new: true });
 
 
         if (!room) {
@@ -143,6 +146,7 @@ export const deleteRoom = async (req, res) => {
 
 export const updateRoomImage = async (req, res) => {
     try {
+        const { usuario } = req;
         let Img = req.img;
 
         const { rid } = req.params;
@@ -152,9 +156,9 @@ export const updateRoomImage = async (req, res) => {
 
         const room = await Room.findById(rid);
 
-        const hotel = await Hotel.findById({hosts: usuario._id});
+        const hotel = await Hotel.findOne({ hosts: usuario._id });
 
-        if(!hotel){
+        if (!hotel) {
             return res.status(401).json({
                 success: false,
                 message: "No tienes permiso para agregar habitaciones a este hotel",
@@ -177,7 +181,7 @@ export const updateRoomImage = async (req, res) => {
         }
 
         room.images.push(newRoomImage);
-        room.images.filter((img) => img !== data.oldImage);
+        room.images = room.images.filter((img) => img !== data.oldImage);
 
         await room.save();
 

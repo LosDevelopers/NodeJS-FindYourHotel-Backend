@@ -7,7 +7,6 @@ import { deleteFileOnError} from "./delete-file-on-error.js";
 
 export const addHotelValidator = [
     validateJWT,
-    hasRoles("ADMIN_ROLE", "HOST_ROLE"),
     body("name").not().isEmpty().withMessage("NAME IS REQUIRED"),
     body("address").not().isEmpty().withMessage("ADDRESS IS REQUIRED"),
     body("classification")
@@ -36,6 +35,16 @@ export const deleteHotelValidator = [
     validateJWT,
     hasRoles("ADMIN_ROLE", "HOST_ROLE"),
     param("id").isMongoId().withMessage("INVALID ID"),
+    validateField,
+    handleErrors
+];
+
+export const addHostValidator = [
+    validateJWT,
+    hasRoles("HOST_ROLE"),
+    param("id").isMongoId().withMessage("INVALID ID"),
+    body("host").isMongoId().withMessage("INVALID HOST ID"),
+    body("host").not().isEmpty().withMessage("HOST ID IS REQUIRED"),
     validateField,
     handleErrors
 ];

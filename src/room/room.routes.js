@@ -11,6 +11,7 @@ import {
     updateRoomValidator,
     deleteRoomValidator,
     updateRoomImageValidator,
+    getRoomsValidator
 } from "../middlewares/room-validators.js";
 import { uploadRoomImage } from "../middlewares/multer-uploads.js";
 import { cloudinaryUploadMultiple, cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
@@ -136,29 +137,6 @@ router.put("/updateRoom/:rid", updateRoomValidator, updateRoom);
 
 /**
  * @swagger
- * /FindYourHotel/v1/room/getRoom/{rid}:
- *   get:
- *     summary: Get room details
- *     tags: [Room]
- *     parameters:
- *       - in: path
- *         name: rid
- *         schema:
- *           type: string
- *         required: true
- *         description: Room ID
- *     responses:
- *       200:
- *         description: Room details fetched successfully
- *       404:
- *         description: Room not found
- *       500:
- *         description: Error fetching room details
- */
-router.get("/getRoom/:rid", updateRoomValidator, updateRoom);
-
-/**
- * @swagger
  * /FindYourHotel/v1/room/getRooms:
  *   get:
  *     summary: Get all rooms
@@ -169,7 +147,7 @@ router.get("/getRoom/:rid", updateRoomValidator, updateRoom);
  *       500:
  *         description: Error fetching rooms
  */
-router.get("/getRooms", getRooms);
+router.get("/getRooms", getRoomsValidator, getRooms);
 
 /**
  * @swagger
