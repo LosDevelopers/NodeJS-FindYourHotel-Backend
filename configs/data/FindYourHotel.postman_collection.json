@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4fda168a-8328-413a-a6cb-8d09ae64a3f3",
+		"_postman_id": "2c6bc5b4-34c1-4d8d-81d7-5156b9750b69",
 		"name": "FindYourHotel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "41959042"
+		"_exporter_id": "37658894"
 	},
 	"item": [
 		{
@@ -211,7 +211,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Jose figueroa\",\r\n    \"email\": \"jfigueroa@gmail.com\",\r\n    \"password\": \"1234holA#\"\r\n}",
+									"raw": "{\r\n    \"img\": \"ninguno\",\r\n    \"name\": \"Jose figueroa\",\r\n    \"email\": \"jfigueroa@gmail.com\",\r\n    \"password\": \"1234holA#\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -399,7 +399,7 @@
 								{
 									"key": "img",
 									"type": "file",
-									"src": "/C:/Users/jdfig/Pictures/Camera Roll/WhatsApp Image 2022-10-05 at 8.47.13 AM.jpeg"
+									"src": "/C:/Users/alexa/OneDrive/Escritorio/Personal/astronauta.jpg"
 								},
 								{
 									"key": "name",
@@ -445,7 +445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"rmorales213278@gmail.com\",\r\n  \"password\": \"1234Angel#\"\r\n}",
+							"raw": "{\r\n  \"email\": \"qqqq@gmail.com\",\r\n  \"password\": \"1234Angel#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -700,7 +700,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODAwMTcwNWExMjI3YTBiMWY2MmU0OWQiLCJpYXQiOjE3NDU2ODczNzIsImV4cCI6MTc0NTY5MDk3Mn0.KnPebnj-D9fv9qikzlE4-qkXLYmoBsBMLQy5s1E5nXk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzYzFkNzVmYjg2OTJmZmY0OGE5OGUiLCJpYXQiOjE3NDYxMjYzNDksImV4cCI6MTc0NjEyOTk0OX0.2ingvZpR13J1ezVAK_JxiAkGYUXyzDuJE6fAhcYTlUg",
 									"type": "string"
 								}
 							]
@@ -728,7 +728,7 @@
 								{
 									"key": "img",
 									"type": "file",
-									"src": "/C:/Users/jdfig/Pictures/yo.jpg"
+									"src": "/C:/Users/alexa/OneDrive/Escritorio/Personal/astronauta.jpg"
 								},
 								{
 									"key": "",
@@ -1130,6 +1130,201 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "Host_Role",
+					"item": [
+						{
+							"name": "get hotel host",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzYzFkNzVmYjg2OTJmZmY0OGE5OGUiLCJpYXQiOjE3NDYxMjkwNDcsImV4cCI6MTc0NjEzMjY0N30.a4ZrvMKn5foUfH3nw_So81-tdo0RSNWG9ucAYkaSp1E",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/reservation/hotelReservations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"reservation",
+										"hotelReservations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client_Role",
+					"item": [
+						{
+							"name": "add reservation client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzZDAwY2U0ZTg2NTg2NjdmMjQ4NDAiLCJpYXQiOjE3NDYxMjg5MTUsImV4cCI6MTc0NjEzMjUxNX0.hDx4ga8nUWJ0yzLOvLRRW6_yJMsXpS6s6H3s81kMv74",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hotel\": \"6813c6365fb8692fff48a997\",\r\n    \"room\": \"6813cf36e4e8658667f2482b\",\r\n    \"startDate\": \"2025-07-27\",\r\n    \"endDate\": \"2025-07-28\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/reservation/reserve",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"reservation",
+										"reserve"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reservation client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzY2M3Y2JkZmFkMGUyMDQ3YWVmMDAiLCJpYXQiOjE3NDYxMjk0NjUsImV4cCI6MTc0NjEzMzA2NX0.DMgGlkTbQz1Us1qMI5gLTAZHZow4Ptyal_ZF1AEooUo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/reservation/userReservations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"reservation",
+										"userReservations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete reservation client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzZDAwY2U0ZTg2NTg2NjdmMjQ4NDAiLCJpYXQiOjE3NDYxMzA2MDIsImV4cCI6MTc0NjEzNDIwMn0.m-ZhPi0zz1jCpbIEQ10SXrHJvh7BYH8KGqqfYfVdUto",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/reservation/cancel/6813d6343fe39cfe6b73c568",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"reservation",
+										"cancel",
+										"6813d6343fe39cfe6b73c568"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update reservation client",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEzZDAwY2U0ZTg2NTg2NjdmMjQ4NDAiLCJpYXQiOjE3NDYxMzE1OTksImV4cCI6MTc0NjEzNTE5OX0.jvtCgw37fR1TECx-Yrp-rlBqqYPlDfNRaCD8fa99X0w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"startDate\": \"2025-05-20\",\r\n    \"endDate\": \"2025-05-25\",\r\n    \"status\":\"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/FindYourHotel/v1/reservation/update/6813d6343fe39cfe6b73c568",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"FindYourHotel",
+										"v1",
+										"reservation",
+										"update",
+										"6813d6343fe39cfe6b73c568"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

@@ -7,6 +7,7 @@ import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import { swaggerDocs, swaggerUi } from "./swagger.js";
 import  apiLimiter from "../src/middlewares/rate-limit-validator.js";
+import reservationRoutes from "../src/reservation/reservation.routes.js";
 import roomRoutes from "../src/room/room.routes.js";
 import authRouter from "../src/auth/auth.routes.js";
 import userRouter from "../src/user/user.routes.js";
@@ -30,6 +31,7 @@ const routes = (app) => {
     app.use("/FindYourHotel/v1/user", userRouter);
     app.use("/FindYourHotel/v1/category", categoryRouter);
     app.use("/FindYourHotel/v1/hotel", hotelRouter);
+    app.use("/FindYourHotel/v1/reservation", reservationRoutes);
 }
 
 const conectarDB = async () => {

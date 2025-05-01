@@ -25,6 +25,7 @@ const options ={
         "./src/user/user.routes.js",
         "./src/category/category.routes.js",
         "./src/hotel/hotel.routes.js",
+        "./src/reservation/reservation.routes.js"
     ]
 }
 
