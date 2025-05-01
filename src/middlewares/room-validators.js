@@ -22,6 +22,7 @@ export const createRoomValidator = [
 export const updateRoomImageValidator = [
     validateJWT,
     hasRoles("HOST_ROLE"),
+    body("image").notEmpty().withMessage("Image is required"),
     param("rid").isMongoId().withMessage("Invalid ID"),
     param("rid").custom(roomExists),
     validateField,

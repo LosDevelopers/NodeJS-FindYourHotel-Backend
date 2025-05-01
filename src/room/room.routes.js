@@ -13,7 +13,7 @@ import {
     updateRoomImageValidator,
 } from "../middlewares/room-validators.js";
 import { uploadRoomImage } from "../middlewares/multer-uploads.js";
-import { cloudinaryUploadMultiple } from "../middlewares/img-uploads.js";
+import { cloudinaryUploadMultiple, cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
 const router = Router();
 
@@ -92,7 +92,7 @@ router.post("/createRoom", uploadRoomImage.array("images", 5), cloudinaryUploadM
  *       500:
  *         description: Error updating room image
  */
-router.patch("/updateImage/:rid", uploadRoomImage.array("image"), updateRoomImageValidator, updateRoomImage);
+router.patch("/updateImage/:rid", uploadRoomImage.single("image"), cloudinaryUploadMiddleware("room-img"), updateRoomImageValidator, updateRoomImage);
 
 /**
  * @swagger

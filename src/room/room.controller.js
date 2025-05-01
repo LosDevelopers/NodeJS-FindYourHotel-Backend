@@ -1,12 +1,23 @@
 import Room from "./room.model.js";
-
+import Hotel from "../hotel/hotel.model.js";
 
 export const addRoom = async (req, res) => {
     try {
+        const {usuario} = req;
+
         let Img = req.imgs;
 
         const data = req.body;
         data.images = Img;
+
+        const hotel = await Hotel.findById(data.hotel);
+
+        if(!hotel.hosts.includes(usuario._id)){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
 
         const room = await Room.create(data);
 
@@ -26,7 +37,19 @@ export const addRoom = async (req, res) => {
 
 export const getRooms = async (req, res) => {
     try {
+        const {usuario} = req;
+
         const rooms = await Room.find();
+
+        const hotel = await Hotel.findById({hosts: usuario._id});
+
+        if(!hotel){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
 
         return res.status(200).json({
             success: true,
@@ -43,10 +66,21 @@ export const getRooms = async (req, res) => {
 
 export const updateRoom = async (req, res) => {
     try {
+        const {usuario} = req;
+
         const { rid } = req.params;
         const data = req.body;
 
         const room = await Room.findByIdAndUpdate(rid, data, { new: true });
+
+        const hotel = await Hotel.findById({hosts: usuario._id});
+
+        if(!hotel){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
 
         if (!room) {
             return res.status(404).json({
@@ -71,9 +105,21 @@ export const updateRoom = async (req, res) => {
 
 export const deleteRoom = async (req, res) => {
     try {
+        const {usuario} = req;
         const { rid } = req.params;
 
+        const hotel = await Hotel.findById({hosts: usuario._id});
+
+        if(!hotel){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
+
         const room = await Room.findByIdAndDelete(rid);
+
 
         if (!room) {
             return res.status(404).json({
@@ -97,10 +143,24 @@ export const deleteRoom = async (req, res) => {
 
 export const updateRoomImage = async (req, res) => {
     try {
+        let Img = req.img;
+
         const { rid } = req.params;
-        const newRoomImage = req.file ? req.file.filename : null;
+        const data = req.body;
+
+        const newRoomImage = Img
 
         const room = await Room.findById(rid);
+
+        const hotel = await Hotel.findById({hosts: usuario._id});
+
+        if(!hotel){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para agregar habitaciones a este hotel",
+            });
+        }
+
 
         if (!room) {
             return res.status(404).json({
@@ -116,7 +176,9 @@ export const updateRoomImage = async (req, res) => {
             });
         }
 
-        room.image = newRoomImage;
+        room.images.push(newRoomImage);
+        room.images.filter((img) => img !== data.oldImage);
+
         await room.save();
 
         return res.status(200).json({

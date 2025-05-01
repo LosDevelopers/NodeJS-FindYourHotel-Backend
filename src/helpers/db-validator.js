@@ -63,15 +63,3 @@ export const categoryExistsByName = async(name = " ") =>{
     }
 }
 
-export const isHost = async (uid = " ") =>{
-    const hotel = await Hotel.findOne({ hosts: uid }); 
-    if(!hotel){
-        throw new Error("The host does not exist");
-    }
-
-    const host = await User.findById(uid); 
-
-    if(!host || host.role !== "HOST_ROLE"){
-        throw new Error("Is not a host");
-    }
-}

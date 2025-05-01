@@ -58,6 +58,14 @@ export const updateHotel = async (req, res) => {
             data,
             { new: true }
         );
+
+        if(!updatedHotel.hosts.includes(usuario._id)){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para editar este hotel",
+            });
+        }
+
         if (!updatedHotel) {
             return res.status(404).json({ message: "Hotel not found" });
         }
@@ -75,6 +83,14 @@ export const deleteHotel = async (req, res) => {
             { status: false },
             { new: true }
         );
+
+        if(!deletedHotel.hosts.includes(usuario._id)){
+            return res.status(401).json({
+                success: false,
+                message: "No tienes permiso para eliminar este hotel",    
+            });
+        }
+
         if (!deletedHotel) {
             return res.status(404).json({ message: "Hotel not found" });
         }
