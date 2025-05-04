@@ -48,3 +48,10 @@ export const addHostValidator = [
     validateField,
     handleErrors
 ];
+
+export const getHotelsByHostValidator = [
+    validateJWT,
+    hasRoles("HOST_ROLE"),
+    validateField,
+    handleErrors
+];

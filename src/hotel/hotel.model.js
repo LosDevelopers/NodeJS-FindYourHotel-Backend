@@ -20,9 +20,21 @@ const hotelSchema = Schema({
         required: [true, "Image is required"]
     },
     category:{
-        type: Schema.Types.ObjectId,
-        ref: "Category"
+        type: Schema.Types.String,
+        Enumerator: "Category"
     },
+    services: [
+        {
+            service: {
+                type: String,
+                required: [true, "Service is required"]
+            },
+            precio: {
+                type: Number,
+                required: [true, "Precio is required"]
+            }
+        }
+    ],
     status: {
         type: Boolean,
         default: true

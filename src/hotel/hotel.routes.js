@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getHotels, getHotelById, createHotel, updateHotel, deleteHotel, addHost } from './hotel.controller.js';
-import { addHotelValidator, editHotelValidator, deleteHotelValidator, addHostValidator } from "../middlewares/hotel-validator.js";
+import { getHotels, getHotelById, createHotel, updateHotel, deleteHotel, addHost, getHotelsByHost } from './hotel.controller.js';
+import { addHotelValidator, editHotelValidator, deleteHotelValidator, addHostValidator, getHotelsByHostValidator } from "../middlewares/hotel-validator.js";
 import { uploadHotelImage } from "../middlewares/multer-uploads.js";
 import { cloudinaryUploadMiddleware } from "../middlewares/img-uploads.js";
 
@@ -152,5 +152,7 @@ router.put('/hoteles/:id',uploadHotelImage.single("img"), cloudinaryUploadMiddle
 router.delete('/hoteles/:id', deleteHotelValidator, deleteHotel);
 
 router.post('/hoteles/:id', addHostValidator, addHost);
+
+router.get("/hoteles/getHotelsByHost", getHotelsByHostValidator, getHotelsByHost)
 
 export default router;

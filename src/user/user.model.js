@@ -30,6 +30,12 @@ const userSchema = Schema({
             ref: 'Reservation'
         }
     ],
+    events: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Event'
+        }
+    ],
     status: {
         type: Boolean,
         default: true

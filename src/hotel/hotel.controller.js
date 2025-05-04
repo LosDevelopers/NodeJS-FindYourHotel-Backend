@@ -141,3 +141,21 @@ export const addHost = async (req, res) => {
         res.status(500).json({ message: "Error adding host", error });
     }
 }
+
+export const getHotelsByHost = async (req, res) => {
+    const {usuario} = req;
+    
+    try {
+        const hotels = await Hotel.find({ hosts: usuario._id, status: true });
+        res.json({
+            success: true,
+            hotels: hotels
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error fetching hotels", 
+            error: error.message
+        });
+    }
+}
